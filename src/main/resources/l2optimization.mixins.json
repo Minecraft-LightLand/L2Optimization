@@ -1,0 +1,20 @@
+{
+	"required": true,
+	"priority": 1000,
+	"package": "dev.xkmc.l2optimization.mixin",
+	"compatibilityLevel": "JAVA_16",
+	"refmap": "l2optimization.refmap.json",
+	"mixins": [
+		"entity.EnderManMixin",
+		"entity.PlayerMixin",
+		"entity.SynchedEntityDataMixin",
+		"vehicle.EntityMixin",
+		"vehicle.TrackedEntityMixin"
+	],
+	"client": [
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"minVersion": "0.8"
+}

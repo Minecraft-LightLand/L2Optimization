@@ -1,0 +1,22 @@
+modLoader="javafml"
+loaderVersion="[46,)"
+license="LGPL v2.1"
+[[mods]]
+modId="l2optimization"
+version="${file.jarVersion}" #mandatory
+displayName="L2Optimization" #mandatory
+description='''
+Misc performance boosts
+'''
+[[dependencies.l2optimization]]
+    modId="forge"
+    mandatory=true
+    versionRange="[46.0.0,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.l2optimization]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20,1.21)"
+    ordering="NONE"
+    side="BOTH"
