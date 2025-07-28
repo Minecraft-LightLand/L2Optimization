@@ -1,6 +1,7 @@
 package dev.xkmc.l2optimization.data;
 
 import dev.xkmc.l2optimization.api.PlayerHook;
+import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeHooks;
@@ -20,14 +21,14 @@ public class PlayerCache {
 		private boolean hasMask = false;
 		private int lastCheckTick = -100;
 
-		private void tryCache(Player player, ItemStack mask) {
+		private void tryCache(EnderMan enderMan, Player player, ItemStack mask) {
 			if (skipCache) return;
-			if (lastCheckTick <= player.tickCount && lastCheckTick >= player.tickCount - 4) return;
+			if (hasResult && lastCheckTick <= player.tickCount && lastCheckTick >= player.tickCount - 4) return;
 			hasResult = false;
 			hasMask = false;
 			lastCheckTick = player.tickCount;
 			try {
-				boolean ans = ForgeHooks.shouldSuppressEnderManAnger(null, player, mask);
+				boolean ans = ForgeHooks.shouldSuppressEnderManAnger(enderMan, player, mask);
 				hasResult = true;
 				hasMask = ans;
 			} catch (Throwable ignored) {
@@ -35,8 +36,8 @@ public class PlayerCache {
 			}
 		}
 
-		public boolean hasEnderMaskCache(Player player, ItemStack mask) {
-			tryCache(player, mask);
+		public boolean hasEnderMaskCache(EnderMan enderMan, Player player, ItemStack mask) {
+			tryCache(enderMan, player, mask);
 			return !skipCache && hasResult;
 		}
 

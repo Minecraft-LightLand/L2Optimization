@@ -17,7 +17,7 @@ public class EnderManMixin {
 	private boolean l2optimization$isMask(EnderMan enderMan, Player player, ItemStack mask, Operation<Boolean> original) {
 		if (L2OConfig.COMMON.doEnderMaskCache.get()) {
 			var data = PlayerCache.of(player);
-			if (data.mask.hasEnderMaskCache(player, mask)) {
+			if (data.mask.hasEnderMaskCache(enderMan, player, mask)) {
 				return data.mask.hasEnderMask(player);
 			}
 		}
