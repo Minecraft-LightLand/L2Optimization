@@ -16,6 +16,7 @@ public class L2Optimization {
 
 
 	public L2Optimization() {
+		L2OConfig.init();
 	}
 
 	@SubscribeEvent

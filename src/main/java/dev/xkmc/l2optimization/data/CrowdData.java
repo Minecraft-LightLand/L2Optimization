@@ -26,8 +26,8 @@ public class CrowdData {
 			crowdTime--;
 			return;
 		}
-		int range = 4;
-		int cd = 100;
+		int range = L2OConfig.COMMON.crowdSearchRange.get();
+		int cd = L2OConfig.COMMON.crowdSearchInterval.get();
 		var list = e.level().getEntitiesOfClass(e.getClass(), e.getBoundingBox().inflate(range));
 		for (var e : list) {
 			var other = of(e);
