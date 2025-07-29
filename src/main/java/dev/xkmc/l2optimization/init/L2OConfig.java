@@ -10,10 +10,12 @@ public class L2OConfig {
 	public static class Common {
 
 		public final ForgeConfigSpec.BooleanValue doEnderMaskCache;
+
 		public final ForgeConfigSpec.BooleanValue doCrowdReduction;
 		public final ForgeConfigSpec.IntValue crowdSearchInterval;
 		public final ForgeConfigSpec.IntValue crowdSearchRange;
 		public final ForgeConfigSpec.IntValue maxCrowdToBreed;
+
 		public final ForgeConfigSpec.IntValue villagerCheckIntervalFast;
 		public final ForgeConfigSpec.IntValue villagerCheckIntervalSlow;
 		public final ForgeConfigSpec.IntValue villagerFastCrowd;
@@ -40,9 +42,9 @@ public class L2OConfig {
 			villagerCheckIntervalSlow = builder.comment("Reduce Villager OneShot AI check to to once per n ticks in Slow Condition")
 					.defineInRange("villagerCheckIntervalSlow", 20, 1, 100);
 			villagerFastCrowd = builder.comment("Villager crowd size for Fast Condition")
-					.defineInRange("villagerFastCrowd", 4, 1, 16);
+					.defineInRange("villagerFastCrowd", 6, 1, 32);
 			villagerSlowCrowd = builder.comment("Villager crowd size for Slow Condition")
-					.defineInRange("villagerSlowCrowd", 8, 1, 16);
+					.defineInRange("villagerSlowCrowd", 12, 1, 64);
 			villagerFastStayTime = builder.comment("Time for Villager to not move to qualify Fast Condition")
 					.defineInRange("villagerFastStayTime", 1200, 1, 100000);
 			villagerSlowStayTime = builder.comment("Time for Villager to not move to qualify Slow Condition")

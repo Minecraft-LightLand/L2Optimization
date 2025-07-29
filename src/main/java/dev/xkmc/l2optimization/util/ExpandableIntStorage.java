@@ -18,6 +18,7 @@ public class ExpandableIntStorage {
 	}
 
 	public void increment(int index) {
+		validate(index);
 		data[index]++;
 	}
 
