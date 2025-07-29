@@ -5,6 +5,9 @@
 	"compatibilityLevel": "JAVA_16",
 	"refmap": "l2optimization.refmap.json",
 	"mixins": [
+		"crowd.AnimalMixin",
+		"crowd.BrainMixin",
+		"crowd.VillagerMixin",
 		"entity.EnderManMixin",
 		"entity.PlayerMixin",
 		"entity.SynchedEntityDataMixin",

@@ -10,10 +10,45 @@ public class L2OConfig {
 	public static class Common {
 
 		public final ForgeConfigSpec.BooleanValue doEnderMaskCache;
+		public final ForgeConfigSpec.BooleanValue doCrowdReduction;
+		public final ForgeConfigSpec.IntValue crowdSearchInterval;
+		public final ForgeConfigSpec.IntValue crowdSearchRange;
+		public final ForgeConfigSpec.IntValue maxCrowdToBreed;
+		public final ForgeConfigSpec.IntValue villagerCheckIntervalFast;
+		public final ForgeConfigSpec.IntValue villagerCheckIntervalSlow;
+		public final ForgeConfigSpec.IntValue villagerFastCrowd;
+		public final ForgeConfigSpec.IntValue villagerSlowCrowd;
+		public final ForgeConfigSpec.IntValue villagerFastStayTime;
+		public final ForgeConfigSpec.IntValue villagerSlowStayTime;
 
 		Common(ForgeConfigSpec.Builder builder) {
 			doEnderMaskCache = builder.comment("Attempt to cache entity-inspecific ender mask")
 					.define("doEnderMaskCache", true);
+			builder.push("CrowdReduction");
+			doCrowdReduction = builder.comment("Attempt to skip passive entity ticks when they are too crowded")
+					.define("doCrowdReduction", true);
+			crowdSearchInterval = builder.comment("Crowd detection interval in ticks")
+					.defineInRange("crowdSearchInterval", 100, 1, 10000);
+			crowdSearchRange = builder.comment("Crowd detection range in blocks")
+					.defineInRange("crowdSearchRange", 4, 1, 16);
+			maxCrowdToBreed = builder.comment("Maximum crowd size to still allow breeding")
+					.defineInRange("maxCrowdToBreed", 8, 2, 100);
+			builder.pop();
+			builder.push("VillagerBrain");
+			villagerCheckIntervalFast = builder.comment("Reduce Villager OneShot AI check to to once per n ticks in Fast Condition")
+					.defineInRange("villagerCheckIntervalFast", 5, 1, 100);
+			villagerCheckIntervalSlow = builder.comment("Reduce Villager OneShot AI check to to once per n ticks in Slow Condition")
+					.defineInRange("villagerCheckIntervalSlow", 20, 1, 100);
+			villagerFastCrowd = builder.comment("Villager crowd size for Fast Condition")
+					.defineInRange("villagerFastCrowd", 4, 1, 16);
+			villagerSlowCrowd = builder.comment("Villager crowd size for Slow Condition")
+					.defineInRange("villagerSlowCrowd", 8, 1, 16);
+			villagerFastStayTime = builder.comment("Time for Villager to not move to qualify Fast Condition")
+					.defineInRange("villagerFastStayTime", 1200, 1, 100000);
+			villagerSlowStayTime = builder.comment("Time for Villager to not move to qualify Slow Condition")
+					.defineInRange("villagerSlowStayTime", 6000, 1, 100000);
+			builder.pop();
+
 		}
 
 	}
