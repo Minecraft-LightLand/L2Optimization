@@ -6,6 +6,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class CrowdData {
 
 	public final LivingEntity e;
@@ -23,12 +25,13 @@ public class CrowdData {
 
 	public void tick() {
 		if (crowdTime > 0) {
-			crowdTime--;
+			crowdTime -= L2OConfig.COMMON.globalCheckInterval.get();
 			return;
 		}
 		int range = L2OConfig.COMMON.crowdSearchRange.get();
 		int cd = L2OConfig.COMMON.crowdSearchInterval.get();
 		var list = e.level().getEntitiesOfClass(e.getClass(), e.getBoundingBox().inflate(range));
+		tryRemove(list);
 		for (var e : list) {
 			var other = of(e);
 			if (other != null) {
@@ -38,6 +41,10 @@ public class CrowdData {
 		}
 		crowdTime = cd;
 		crowd = list.size();
+	}
+
+	protected void tryRemove(List<? extends LivingEntity> list) {
+
 	}
 
 	public <E extends LivingEntity> boolean shouldSkipBrainBehavior(BehaviorControl<E> instance, long time) {

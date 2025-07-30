@@ -12,9 +12,12 @@ public class L2OConfig {
 		public final ForgeConfigSpec.BooleanValue doEnderMaskCache;
 
 		public final ForgeConfigSpec.BooleanValue doCrowdReduction;
+		public final ForgeConfigSpec.IntValue globalCheckInterval;
 		public final ForgeConfigSpec.IntValue crowdSearchInterval;
 		public final ForgeConfigSpec.IntValue crowdSearchRange;
 		public final ForgeConfigSpec.IntValue maxCrowdToBreed;
+		public final ForgeConfigSpec.IntValue crowdAnimalRemoval;
+		public final ForgeConfigSpec.IntValue crowdVillagerRemoval;
 
 		public final ForgeConfigSpec.IntValue villagerCheckIntervalFast;
 		public final ForgeConfigSpec.IntValue villagerCheckIntervalSlow;
@@ -29,12 +32,18 @@ public class L2OConfig {
 			builder.push("CrowdReduction");
 			doCrowdReduction = builder.comment("Attempt to skip passive entity ticks when they are too crowded")
 					.define("doCrowdReduction", true);
+			globalCheckInterval = builder.comment("Crowd algorithm check interval in ticks")
+					.defineInRange("globalCheckInterval", 4, 1, 100);
 			crowdSearchInterval = builder.comment("Crowd detection interval in ticks")
 					.defineInRange("crowdSearchInterval", 100, 1, 10000);
 			crowdSearchRange = builder.comment("Crowd detection range in blocks")
 					.defineInRange("crowdSearchRange", 4, 1, 16);
 			maxCrowdToBreed = builder.comment("Maximum crowd size to still allow breeding")
 					.defineInRange("maxCrowdToBreed", 8, 2, 100);
+			crowdAnimalRemoval = builder.comment("When crowd size go above this number, randomly kills animals wuthout name")
+							.defineInRange("crowdAnimalRemoval",10,4,1000);
+			crowdVillagerRemoval = builder.comment("When crowd size go above this number, randomly kills villagers without name and job")
+					.defineInRange("crowdVillagerRemoval",16,4,1000);
 			builder.pop();
 			builder.push("VillagerBrain");
 			villagerCheckIntervalFast = builder.comment("Reduce Villager OneShot AI check to to once per n ticks in Fast Condition")

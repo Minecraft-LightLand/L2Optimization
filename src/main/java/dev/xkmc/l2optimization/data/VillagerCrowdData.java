@@ -2,9 +2,14 @@ package dev.xkmc.l2optimization.data;
 
 import dev.xkmc.l2optimization.init.L2OConfig;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.ai.behavior.OneShot;
+import net.minecraft.world.entity.npc.Villager;
+import net.minecraft.world.entity.npc.VillagerProfession;
+
+import java.util.List;
 
 public class VillagerCrowdData extends CrowdData {
 
@@ -18,12 +23,11 @@ public class VillagerCrowdData extends CrowdData {
 	@Override
 	public void tick() {
 		super.tick();
-		if (e.tickCount % 4 != 0) return;
 		if (e.isSleeping()) {
 			stayTime = 0;
 			prev = e.blockPosition();
 		} else if (prev != null && prev.equals(e.blockPosition())) {
-			stayTime += 4;
+			stayTime += L2OConfig.COMMON.globalCheckInterval.get();
 		} else {
 			stayTime = 0;
 			prev = e.blockPosition();
@@ -41,6 +45,19 @@ public class VillagerCrowdData extends CrowdData {
 				return time % L2OConfig.COMMON.villagerCheckIntervalFast.get() != 0;
 		}
 		return false;
+	}
+
+	@Override
+	protected void tryRemove(List<? extends LivingEntity> list) {
+		if (list.size() <= L2OConfig.COMMON.crowdVillagerRemoval.get())
+			return;
+		var sel = list.get(e.getRandom().nextInt(list.size()));
+		if (sel.hasCustomName()) return;
+		if (!(sel instanceof Villager v)) return;
+		var prof = v.getVillagerData().getProfession();
+		if (prof != VillagerProfession.NONE && prof != VillagerProfession.NITWIT)
+			return;
+		sel.remove(Entity.RemovalReason.KILLED);
 	}
 
 }
